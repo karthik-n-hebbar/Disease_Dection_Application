@@ -1,1 +1,1 @@
-# Disease_Dection_Application
+# Disease Dection Application
