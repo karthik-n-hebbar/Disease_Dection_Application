@@ -3,14 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="426dp"
+        android:src="@drawable/ic_launcher_background" />
+z
     <Button
         android:id="@+id/chest_select_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="160dp"
-        android:layout_marginBottom="512dp"
+        android:layout_marginEnd="221dp"
+        android:layout_marginBottom="322dp"
         android:text="Select Image" />
 
     <Button
@@ -19,17 +29,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="159dp"
-        android:layout_marginBottom="408dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginBottom="322dp"
         android:text="Run Analysis" />
 
     <TextView
         android:id="@+id/chest_test_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="169dp"
+        android:layout_height="139dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="183dp"
-        android:layout_marginBottom="337dp"
+        android:layout_marginEnd="123dp"
+        android:layout_marginBottom="147dp"
         android:text="TEST RESULT" />
 </RelativeLayout>
