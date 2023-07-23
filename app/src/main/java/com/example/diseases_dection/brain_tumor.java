@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.diseases_dection.ml.BrainTumor;
+import com.example.diseases_dection.ml.Model;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
@@ -44,7 +45,22 @@ public class brain_tumor extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brain_tumor);
 
+        String[] labels1 = new String[5];
+        int cnt = 0;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getAssets().open("labels1.txt")));
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                labels1[cnt] = line;
+                cnt++;
+                line = bufferedReader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         imageView = findViewById(R.id.inputImage);
+
         selectImageButton = findViewById(R.id.brain_select_img);
         predictButton1 = findViewById(R.id.brain_analyse);
         predictionTextView = findViewById(R.id.brain_test_result);
@@ -66,20 +82,8 @@ public class brain_tumor extends Activity {
 //                    predictionTextView.setText("Predicted Disease: " + predictedDisease);
 
                     selectedImage = Bitmap.createScaledBitmap(selectedImage, 224, 224, true);
-                    String[] labels1 = new String[5];
-                    int cnt = 0;
-                    try {
-                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getAssets().open("labels1.txt")));
-                        String line = bufferedReader.readLine();
-                        while (line != null) {
-                            labels1[cnt] = line;
-                            cnt++;
-                            line = bufferedReader.readLine();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                     TensorBuffer outputFeature0=null;
+
+                    TensorBuffer outputFeature0=null;
                     try {
                         BrainTumor model = BrainTumor.newInstance(brain_tumor.this);
 
@@ -94,7 +98,7 @@ public class brain_tumor extends Activity {
                         BrainTumor.Outputs outputs = model.process(inputFeature0);
 
                         outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
-                        //predictionTextView.setText(outputFeature0.getFloatArray().toString());
+                        predictionTextView.setText(labels1[getMax(outputFeature0.getFloatArray())]);
                         // Releases model resources if no longer used.
                         model.close();
                     } catch (IOException e) {
