@@ -12,7 +12,7 @@
         android:layout_height="300dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/analysis"
+        android:src="@drawable/ic_launcher_background"
         android:layout_margin="15dp"/>
 
     <LinearLayout
@@ -24,7 +24,7 @@
 
 
         <Button
-            android:id="@+id/chest_select_img"
+            android:id="@+id/tb_select_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -37,7 +37,7 @@
             android:background="@drawable/bg_buttons"/>
 
         <Button
-            android:id="@+id/chest_analyse"
+            android:id="@+id/tb_analyse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -52,7 +52,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/chest_test_result"
+        android:id="@+id/tb_test_result"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"

@@ -1,36 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center">
 
-    <Button
-        android:id="@+id/tb_select_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/inputImage"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="160dp"
-        android:layout_marginBottom="512dp"
-        android:text="Select Image" />
+        android:src="@drawable/analysis"
+        android:layout_margin="15dp"/>
 
-    <Button
-        android:id="@+id/tb_analyse"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="159dp"
-        android:layout_marginBottom="408dp"
-        android:text="Run Analysis" />
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+
+        <Button
+            android:id="@+id/tb_select_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="15dp"
+            android:padding="15dp"
+            android:text="Select Image"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_buttons"/>
+
+        <Button
+            android:id="@+id/tb_analyse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="15dp"
+            android:padding="15dp"
+            android:text="Run Analysis"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_buttons"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tb_test_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="184dp"
-        android:layout_marginBottom="337dp"
-        android:text="TEST RESULT" />
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Text Results"
+        android:textSize="20sp"
+        android:background="#811FB7B1"/>
 
-</RelativeLayout>
+</LinearLayout>

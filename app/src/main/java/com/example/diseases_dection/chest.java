@@ -42,7 +42,7 @@ public class chest extends Activity {
         setContentView(R.layout.chest);
 
 
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.inputImage);
         selectImageButton = findViewById(R.id.chest_select_img);
         predictButton = findViewById(R.id.chest_analyse);
         predictionTextView = findViewById(R.id.chest_test_result);
@@ -145,7 +145,7 @@ public class chest extends Activity {
 
             // Set the result in the predictionTextView
             predictionTextView.setText(resultBuilder.toString());
-            predictionTextView.append(labels[getMax(predictedValues)]);
+            predictionTextView.append(" "+labels[getMax(predictedValues)]);
         } else {
             predictionTextView.setText("Prediction failed. Please check the model and inputs.");
         }

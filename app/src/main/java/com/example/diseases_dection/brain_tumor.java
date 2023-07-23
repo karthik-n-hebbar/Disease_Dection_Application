@@ -44,7 +44,7 @@ public class brain_tumor extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brain_tumor);
 
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.inputImage);
         selectImageButton = findViewById(R.id.brain_select_img);
         predictButton1 = findViewById(R.id.brain_analyse);
         predictionTextView = findViewById(R.id.brain_test_result);
@@ -117,7 +117,7 @@ public class brain_tumor extends Activity {
 
                     // Set the result in the predictionTextView
                     predictionTextView.setText(resultBuilder.toString());
-                    predictionTextView.append(labels1[getMax(predictedValues)]);
+                    predictionTextView.append(" "+labels1[getMax(predictedValues)]);
                 } else {
                     predictionTextView.setText("Prediction failed. Please check the model and inputs.");
                 }
@@ -127,10 +127,6 @@ public class brain_tumor extends Activity {
             }
         });
 
-    }
-    private int getmin(int i){
-        i=i+1;
-        return i;
     }
 
     private int getMax(float []arr){
