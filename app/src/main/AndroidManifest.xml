@@ -25,6 +25,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
         <activity android:name=".chest"/>
+        <activity android:name=".brain_tumor"/>
+        <activity android:name=".tb"/>
     </application>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

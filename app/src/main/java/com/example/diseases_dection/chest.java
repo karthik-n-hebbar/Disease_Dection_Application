@@ -125,7 +125,6 @@ public class chest extends Activity {
             ChestXray.Outputs outputs = model.process(inputFeature0);
             outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
-
             // Releases model resources if no longer used.
             model.close();
         } catch (IOException e) {

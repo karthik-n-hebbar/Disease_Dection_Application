@@ -14,11 +14,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button bu2=findViewById(R.id.button);
-        bu2.setOnClickListener(new View.OnClickListener() {
+        Button bu1=findViewById(R.id.button);
+        bu1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, chest.class);
+                startActivity(intent);
+            }
+        });
+        Button bu2=findViewById(R.id.button2);
+        bu2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, brain_tumor.class);
                 startActivity(intent);
             }
         });
