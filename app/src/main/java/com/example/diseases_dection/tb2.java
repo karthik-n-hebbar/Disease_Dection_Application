@@ -27,28 +27,39 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 
-public class brain_tumor extends AppCompatActivity {
+public class tb2 extends AppCompatActivity {
 
     Button camera, gallery;
     ImageView imageView;
     TextView result;
+    private Bitmap image;
     private Button predictButton;
     int imageSize = 32;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.brain_tumor);
+        setContentView(R.layout.tb);
 
-        gallery = findViewById(R.id.brain_select_img);
-        predictButton = findViewById(R.id.brain_analyse);
-        result = findViewById(R.id.brain_test_result);
+        gallery = findViewById(R.id.tb_select_img);
+        predictButton = findViewById(R.id.tb_analyse);
+        result = findViewById(R.id.tb_test_result);
         imageView = findViewById(R.id.inputImage);
 
-
+//        camera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+//                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    startActivityForResult(cameraIntent, 3);
+//                } else {
+//                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
+//                }
+//            }
+//        });
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(cameraIntent, 1);
             }
@@ -57,7 +68,7 @@ public class brain_tumor extends AppCompatActivity {
         predictButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                classifyImage(image);
             }
         });
 
@@ -101,7 +112,7 @@ public class brain_tumor extends AppCompatActivity {
                     maxPos = i;
                 }
             }
-            String[] classes = {"Glioma", "Meningioma", "No Tumor", "Pituitary"};
+            String[] classes = {"Glioma" + "Meningioma" + "No Tumor" + "Pituitary"};
             result.setText(classes[maxPos]);
             // Releases model resources if no longer used.
             model.close();
@@ -114,10 +125,11 @@ public class brain_tumor extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(resultCode == RESULT_OK){
             if(requestCode == 3){
-                Bitmap image = (Bitmap) data.getExtras().get("data");
+                image = (Bitmap) data.getExtras().get("data");
                 int dimension = Math.min(image.getWidth(), image.getHeight());
                 image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
                 imageView.setImageBitmap(image);
+
 
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
@@ -130,11 +142,13 @@ public class brain_tumor extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 imageView.setImageBitmap(image);
-
+                classifyImage(image);
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
 }

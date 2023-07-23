@@ -27,6 +27,8 @@
         <activity android:name=".chest"/>
         <activity android:name=".brain_tumor"/>
         <activity android:name=".tb"/>
+        <activity android:name=".tb1"/>
+        <activity android:name=".tb2"/>
     </application>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
