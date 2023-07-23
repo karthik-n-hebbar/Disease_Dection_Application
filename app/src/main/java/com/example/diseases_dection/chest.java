@@ -61,7 +61,7 @@ public class chest extends Activity {
                     // Perform TensorFlow model inference here
                     // Call a method to predict the disease based on the selectedImage bitmap
                     String predictedDisease = performInference(selectedImage);
-                    predictionTextView.setText("Predicted Disease: " + predictedDisease);
+                    //predictionTextView.setText("Predicted Disease: " + predictedDisease);
                 } else {
                     predictionTextView.setText("Please select an image first.");
                 }
@@ -129,6 +129,25 @@ public class chest extends Activity {
             model.close();
         } catch (IOException e) {
             // TODO Handle the exception
+        }
+        if (outputFeature0 != null) {
+            // Convert the float array to a human-readable string
+            StringBuilder resultBuilder = new StringBuilder("Predicted Values: ");
+            float[] predictedValues = outputFeature0.getFloatArray();
+            for (float value : predictedValues) {
+                // Round the value to 2 decimal places
+                String formattedValue = String.format("%.2f", value);
+                resultBuilder.append(formattedValue).append(", ");
+            }
+
+            // Remove the trailing comma and space
+            resultBuilder.setLength(resultBuilder.length() - 2);
+
+            // Set the result in the predictionTextView
+            predictionTextView.setText(resultBuilder.toString());
+            predictionTextView.append(labels[getMax(predictedValues)]);
+        } else {
+            predictionTextView.setText("Prediction failed. Please check the model and inputs.");
         }
         return labels[getMax(outputFeature0.getFloatArray())] + " ";
     }
