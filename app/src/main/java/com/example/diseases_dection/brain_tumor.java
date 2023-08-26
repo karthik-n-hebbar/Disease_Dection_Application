@@ -1,6 +1,5 @@
 package com.example.diseases_dection;
 
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
@@ -15,9 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.diseases_dection.ml.BrainTumor;
-import com.example.diseases_dection.ml.Model;
 import com.example.diseases_dection.ml.Model11;
+import com.example.diseases_dection.ml.Xray;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
@@ -26,14 +24,13 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-
 public class brain_tumor extends AppCompatActivity {
 
-    Button camera, gallery;
+    Button camera, gallery, predictButton;
     ImageView imageView;
     TextView result;
-    private Button predictButton;
     int imageSize = 32;
+    Bitmap selectedImage; // To store the selected image
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +41,6 @@ public class brain_tumor extends AppCompatActivity {
         predictButton = findViewById(R.id.brain_analyse);
         result = findViewById(R.id.brain_test_result);
         imageView = findViewById(R.id.inputImage);
-
 
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,13 +53,17 @@ public class brain_tumor extends AppCompatActivity {
         predictButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (selectedImage != null) {
+                    // Process the selected image for classification
+                    classifyImage(selectedImage);
+                }
+                else
+                    result.setText("Select an Image first");
             }
         });
-
     }
 
-    public void classifyImage(Bitmap image){
+    public void classifyImage(Bitmap image) {
         try {
             Model11 model =  Model11.newInstance(getApplicationContext());
 
@@ -112,27 +112,21 @@ public class brain_tumor extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK){
-            if(requestCode == 3){
-                Bitmap image = (Bitmap) data.getExtras().get("data");
-                int dimension = Math.min(image.getWidth(), image.getHeight());
-                image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
-                imageView.setImageBitmap(image);
-
-                image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
-                classifyImage(image);
-            }else{
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) { // Use a different request code, e.g., 1, for gallery selection
                 Uri dat = data.getData();
-                Bitmap image = null;
                 try {
-                    image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), dat);
+                    Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), dat);
+//                    int dimension = Math.min(image.getWidth(), image.getHeight());
+//                    image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
+                    imageView.setImageBitmap(image);
+
+                    image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
+                    selectedImage = image; // Save the selected image for later use
+                    result.setText("Image Selected");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                imageView.setImageBitmap(image);
-
-                image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
-                classifyImage(image);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
